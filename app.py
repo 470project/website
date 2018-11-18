@@ -30,8 +30,8 @@ def back_to_home():
 def startup():
     global userFavs
     global topStories
-    '''
-    with open('result.jl') as f:
+
+    with app.open_resource('resultSmall.jl') as f:  
         for line in f:
             j = json.loads(line)
             if j["pageType"] == "user":
@@ -51,7 +51,8 @@ def startup():
                     #if the current top story for the author has less favorites than the new story then make the new story the top story. else don't change anything.
                     if int(topStories[author][1]) < int(favs):
                         topStories[author] = (link, int(favs))
-    '''
+    
+    
 startup()
 
 @app.route('/karl/')
