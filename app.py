@@ -31,7 +31,7 @@ def startup():
     global userFavs
     global topStories
 
-    with app.open_resource('resultSmall.jl') as f:  
+    with app.open_resource('result.jl') as f:  
         for line in f:
             j = json.loads(line)
             if j["pageType"] == "user":
