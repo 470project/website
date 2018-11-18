@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, url_for
 #read json file
 import json
+import recommend
 
 app = Flask(__name__)
 
@@ -9,23 +10,21 @@ userFavs = dict()
 topStories = dict()
 
 
-
-
 @app.route('/')
-def hello():
+def home():
     return render_template('fanfix.html')
 
 @app.route('/informationInput.html/')
-def hello_world():
+def recommendationPage():
 	return render_template('recommendation.html')
 
 @app.route('/informationInput.html/informationInput.html/')
 def back_to_informationInput():
-    return redirect(url_for('hello_world'))
+    return redirect(url_for('recommendationPage'))
 
 @app.route('/informationInput.html/fanfix.html/')
 def back_to_home():
-    return redirect(url_for('hello'))
+    return redirect(url_for('home'))
 
 def startup():
     global userFavs
@@ -57,7 +56,8 @@ startup()
 
 @app.route('/karl/')
 def karlTest():
-    return str(len(userFavs))
+    matchUser = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]  #these are the authors that the user has favorited
+    return recommend.recommender(matchUser)
 
 
 if __name__ == "__main__":
