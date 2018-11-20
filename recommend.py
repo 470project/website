@@ -52,10 +52,17 @@ def recommender(matchUser):
             simScore = authorStoryScore[elem][0]
             authorStoryScore[elem] = (simScore, app.topStories[elem][0])
 
+    sortedDict = sorted(authorStoryScore.items(), key=lambda kv: kv[1], reverse=True)
+
+    return sortedDict
+
+    '''
+    j = json.dumbs(authorStoryScore)
     returnStr = ""
     returnStr += "Printing Author similarityScore story link.\n"
     for key in authorStoryScore:
         returnStr += str(key) + " " +  str(authorStoryScore[key][0]) + " " + str(authorStoryScore[key][1]) + "\n"
     return returnStr
+    '''
 
 

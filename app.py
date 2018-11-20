@@ -14,17 +14,37 @@ topStories = dict()
 def home():
     return render_template('fanfix.html')
 
+@app.route('/fanfix.html/')
+def back_to_same():
+    return redirect(url_for('home'))
+
 @app.route('/informationInput.html/')
-def recommendationPage():
-	return render_template('recommendation.html')
+def inputPage():
+	return render_template('informationInput.html')
 
 @app.route('/informationInput.html/informationInput.html/')
 def back_to_informationInput():
-    return redirect(url_for('recommendationPage'))
+    return redirect(url_for('inputPage'))
 
 @app.route('/informationInput.html/fanfix.html/')
 def back_to_home():
     return redirect(url_for('home'))
+
+@app.route('/recommendation.html/', methods = ['POST','GET'])
+def outputPage():
+	if request.method == 'POST':
+		link = request.link
+		favoriteAuthors = UserInfo.getFavoriteAuthors(link)
+		result = recommend.recommender(favoriteAuthors)
+		return render_template('recommendation.html', data=result)
+	
+@app.route('/recommendation.html/fanfix.html/')
+def back_to_home_rec():
+    return redirect(url_for('home'))
+
+@app.route('/recommendation.html/informationInput.html/')
+def back_to_input_rec():
+    return redirect(url_for('inputPage'))
 
 def startup():
     global userFavs
@@ -57,7 +77,7 @@ startup()
 @app.route('/karl/')
 def karlTest():
     matchUser = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]  #these are the authors that the user has favorited
-    return recommend.recommender(matchUser)
+    return json.dumps(recommend.recommender(matchUser))    #isn't a string right now so flask will dislike.
 
 
 if __name__ == "__main__":
