@@ -61,7 +61,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			var list = "";
 			for (var key in authorResults) {
 				list+="<li class='w3-text-indigo'>";
-				list+=authorResults[key][0];
+				list+=authorResults[key];
 				list+="</li>";
 			}
 			document.getElementById("AuthorList").innerHTML = list;
