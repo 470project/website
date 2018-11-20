@@ -38,8 +38,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-container">
-	<div class="w3-left-align w3-text-indigo"><p>User Recommendations</p></div>
 <!--
+	<div class="w3-left-align w3-text-indigo"><p>User Recommendations</p></div>
 	 <ul id="StoryList" class="w3-ul w3-xlarge">
 		<script>
 			var storyList = data;
@@ -61,7 +61,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			var list = "";
 			for (var key in authorResults) {
 				list+="<li class='w3-text-indigo'>";
-				list+=authorResults[key];
+				list+=key;
 				list+="</li>";
 			}
 			document.getElementById("AuthorList").innerHTML = list;
