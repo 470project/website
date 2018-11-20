@@ -37,7 +37,8 @@ def outputPage():
 		favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
 		#favoriteAuthors = userInfo.getFavoriteAuthors(link)
 		result = recommend.recommender(favoriteAuthors)
-		return render_template('recommendation.html', data=result[:10])
+		data = json.dumps(result[:10])
+		return render_template('recommendation.html', data=data)
 	
 @app.route('/recommendation.html/fanfix.html/')
 def back_to_home_rec():
