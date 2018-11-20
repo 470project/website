@@ -39,18 +39,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-content">
     <div class="w3-container">
 	<div class="w3-left-align w3-text-indigo"><p>User Recommendations</p></div>
-	<ul id="StoryList" class="w3-ul w3-xlarge">
+<!--
+	 <ul id="StoryList" class="w3-ul w3-xlarge">
 		<script>
-			//var jsonResults = {{ data|tojson|safe }};
-			var jsonResults = {
-				"stories": [
-					"s/12929668/1/Rewind-to-Black",
-					"s/13125296/1/Our-Choices-In-Life-Year-One"
-					],
-				"authors": [
-					"u/5482960/animeotaku20","u/11078919/Pyrohub"
-					]
-				};
+			var storyList = data;
 			var userResults = jsonResults['stories'];
 			var list = "";
 			for (var key in userResults) {
@@ -61,24 +53,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			document.getElementById("StoryList").innerHTML = list;
 		</script>
 	</ul>
+-->
 	<div class="w3-left-align w3-text-indigo"><p>Author Recommendations</p></div>
 	<ul id="AuthorList" class="w3-ul w3-xlarge">
 		<script>
-			//var jsonResults = {{ data|tojson|safe }};
-			var jsonResults = {
-				"stories": [
-					"s/12929668/1/Rewind-to-Black",
-					"s/13125296/1/Our-Choices-In-Life-Year-One"
-					],
-				"authors": [
-					"u/5482960/animeotaku20","u/11078919/Pyrohub"
-					]
-				};
-			var authorResults = jsonResults['authors'];
+			var authorResults = data;
 			var list = "";
-			for (var key in authorResults) {
+			for (var author in authorResults) {
 				list+="<li class='w3-text-indigo'>";
-				list+=authorResults[key];
+				list+=author;
 				list+="</li>";
 			}
 			document.getElementById("AuthorList").innerHTML = list;
