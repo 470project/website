@@ -57,11 +57,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 	<div class="w3-left-align w3-text-indigo"><p>Author Recommendations</p></div>
 	<ul id="AuthorList" class="w3-ul w3-xlarge">
 		<script>
-			var authorResults = data;
+			var authorResults = {{ data|safe }};
 			var list = "";
-			for (var author in authorResults) {
+			for (var key in authorResults) {
 				list+="<li class='w3-text-indigo'>";
-				list+=author;
+				list+=authorResults[key][0];
 				list+="</li>";
 			}
 			document.getElementById("AuthorList").innerHTML = list;
