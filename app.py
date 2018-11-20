@@ -14,17 +14,35 @@ topStories = dict()
 def home():
     return render_template('fanfix.html')
 
+@app.route('/fanfix.html/')
+def back_to_same():
+    return redirect(url_for('home'))
+
 @app.route('/informationInput.html/')
-def recommendationPage():
-	return render_template('recommendation.html')
+def inputPage():
+	return render_template('informationInput.html')
 
 @app.route('/informationInput.html/informationInput.html/')
 def back_to_informationInput():
-    return redirect(url_for('recommendationPage'))
+    return redirect(url_for('inputPage'))
 
 @app.route('/informationInput.html/fanfix.html/')
 def back_to_home():
     return redirect(url_for('home'))
+
+@app.route('/recommendation.html/', methods = ['POST','GET'])
+def outputPage():
+	if request.method == 'POST':
+		line = request.link
+		return render_template('recommendation.html')
+	
+@app.route('/recommendation.html/fanfix.html/')
+def back_to_home_rec():
+    return redirect(url_for('home'))
+
+@app.route('/recommendation.html/informationInput.html/')
+def back_to_input_rec():
+    return redirect(url_for('inputPage'))
 
 def startup():
     global userFavs
