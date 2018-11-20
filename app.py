@@ -3,6 +3,7 @@ from flask import Flask, redirect, render_template, url_for, request
 import json
 import recommend
 import userInfo
+import json_lines
 app = Flask(__name__)
 
 #adding global variables
@@ -32,12 +33,14 @@ def back_to_home():
 
 @app.route('/informationInput.html/recommendation.html', methods = ['POST','GET'])
 def outputPage():
-	if request.method == 'POST':
-		link = request.form['link']
-		#favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
-		favoriteAuthors = userInfo.getFavoriteAuthors(link)
-		result = recommend.recommender(favoriteAuthors)
-		return render_template('recommendation.html', data=result[:10])
+    if request.method == 'POST':
+        link = request.form['link']
+        #favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
+        favoriteAuthors = userInfo.getFavoriteAuthors(link)
+        result = recommend.recommender(favoriteAuthors)
+
+        print(result[:10])
+        return render_template('recommendation.html', data=result[:10])
 	
 @app.route('/recommendation.html/fanfix.html/')
 def back_to_home_rec():
@@ -50,11 +53,14 @@ def back_to_input_rec():
 def startup():
     global userFavs
     global topStories
-
+    global stories, users
+    stories = []
+    users = []
     with app.open_resource('result.jl') as f:  
         for line in f:
             j = json.loads(line)
             if j["pageType"] == "user":
+                users.append({'name':j['name'], 'name':j['stories']})
                 favAuthors = []
                 favs = j["favorites"]
                 for elem in favs:
@@ -65,13 +71,15 @@ def startup():
                 favs = int(j["otherInfo"]["favorites"])
                 author = j["author"]
                 link = j["storyLink"]
+                
+                stories.append({'storyLink':j["storyLink"]})
+
                 if author not in topStories:
                     topStories[author] = (link, int(favs))
                 else:
                     #if the current top story for the author has less favorites than the new story then make the new story the top story. else don't change anything.
                     if int(topStories[author][1]) < int(favs):
-                        topStories[author] = (link, int(favs))
-    
+                        topStories[author] = (link, int(favs))   
     
 startup()
 

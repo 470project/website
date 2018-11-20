@@ -9,6 +9,8 @@ import json
 #importing app so global variables can be used
 import app
 
+import pageRankRecommender
+
 #user that we are matching
 #matchUser = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
 def recommender(matchUser):          
@@ -65,4 +67,4 @@ def recommender(matchUser):
     return returnStr
     '''
 
-
+#PRRec = pageRankRecommender(stories, users)
