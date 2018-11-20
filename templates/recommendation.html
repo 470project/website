@@ -38,22 +38,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-container">
-<!--
-	<div class="w3-left-align w3-text-indigo"><p>User Recommendations</p></div>
+
+	<div class="w3-left-align w3-text-indigo"><p>Author Recommendations</p></div>
 	 <ul id="StoryList" class="w3-ul w3-xlarge">
 		<script>
-			var storyList = data;
-			var userResults = jsonResults['stories'];
+			var userResults = {{ data|tojson }};
+			#var userResults = jsonResults['stories'];
 			var list = "";
 			for (var key in userResults) {
 				list+="<li class='w3-text-indigo'>";
-				list+=userResults[key];
+				list+=key;
 				list+="</li>";
 			}
 			document.getElementById("StoryList").innerHTML = list;
 		</script>
 	</ul>
--->
+
+<!--
 	<div class="w3-left-align w3-text-indigo"><p>Author Recommendations</p></div>
 	<ul id="AuthorList" class="w3-ul w3-xlarge">
 		<script>
@@ -67,6 +68,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 			document.getElementById("AuthorList").innerHTML = list;
 		</script>
 	</ul>
+-->
     </div>
   </div>
 </div>
