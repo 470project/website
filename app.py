@@ -77,7 +77,7 @@ startup()
 @app.route('/karl/')
 def karlTest():
     matchUser = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]  #these are the authors that the user has favorited
-    return recommend.recommender(matchUser)
+    return json.dumps(recommend.recommender(matchUser))    #isn't a string right now so flask will dislike.
 
 
 if __name__ == "__main__":
