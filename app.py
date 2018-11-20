@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect, render_template, url_for, request
 #read json file
 import json
 import recommend
@@ -30,7 +30,7 @@ def back_to_informationInput():
 def back_to_home():
     return redirect(url_for('home'))
 
-@app.route('/recommendation.html/', methods = ['POST','GET'])
+@app.route('/informationInput.html/recommendation.html/', methods = ['POST','GET'])
 def outputPage():
 	if request.method == 'POST':
 		link = request.link
