@@ -36,7 +36,7 @@ def outputPage():
 		link = request.link
 		favoriteAuthors = UserInfo.getFavoriteAuthors(link)
 		result = recommend.recommender(favoriteAuthors)
-		return render_template('recommendation.html', data=result)
+		return render_template('recommendation.html', data=result[:10])
 	
 @app.route('/recommendation.html/fanfix.html/')
 def back_to_home_rec():
