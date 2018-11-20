@@ -33,7 +33,7 @@ def back_to_home():
 @app.route('/recommendation.html/', methods = ['POST','GET'])
 def outputPage():
 	if request.method == 'POST':
-		line = request.link
+		link = request.link
 		return render_template('recommendation.html')
 	
 @app.route('/recommendation.html/fanfix.html/')
