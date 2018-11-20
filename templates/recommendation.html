@@ -59,10 +59,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 		<script>
 			var authorResults = {{ data|safe }};
 			var list = "";
-			for (var key in authorResults) {
+			for (var i = 0; i < 10; i++) {
 				list+="<li class='w3-text-indigo'>";
-				list+=key;
-				list+="</li>";
+				list+=authorResults[i];
+				list+="</li>";	
 			}
 			document.getElementById("AuthorList").innerHTML = list;
 		</script>

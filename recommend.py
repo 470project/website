@@ -8,6 +8,7 @@ import json
 
 #importing app so global variables can be used
 import app
+from collections import OrderedDict
 
 import pageRankRecommender
 
@@ -54,9 +55,20 @@ def recommender(matchUser):
             simScore = authorStoryScore[elem][0]
             authorStoryScore[elem] = (simScore, app.topStories[elem][0])
 
-    sortedDict = sorted(authorStoryScore.items(), key=lambda kv: kv[1], reverse=True)
+    sortedDict = OrderedDict(sorted(authorStoryScore.items(), key=lambda kv: kv[1], reverse=True))
 
-    return sortedDict
+    sList = sortedDict.keys()
+
+    sListShort = []
+    count = 0
+    for elem in sList:
+        if count >=10:
+            break
+        sListShort.append(elem)
+        count += 1
+
+
+    return sListShort
 
     '''
     j = json.dumbs(authorStoryScore)
