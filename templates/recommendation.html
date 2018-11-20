@@ -37,19 +37,53 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
-    <div class="w3-twothird">
-		<div class="w3-left-align w3-text-indigo"><p>User Recommendations</p></div>
-		<ul class="w3-ul w3-xlarge">
-			<li class="w3-text-indigo">Recommendation 1</li>
-			<li class="w3-text-indigo">Recommendation 2</li>
-			<li class="w3-text-indigo">Recommendation 3</li>
-		</ul>
-		<div class="w3-left-align w3-text-indigo"><p>Author Recommendations</p></div>
-		<ul class="w3-ul w3-xlarge">
-			<li class="w3-text-indigo">Recommendation 1</li>
-			<li class="w3-text-indigo">Recommendation 2</li>
-			<li class="w3-text-indigo">Recommendation 3</li>
-		</ul>
+    <div class="w3-container">
+	<div class="w3-left-align w3-text-indigo"><p>User Recommendations</p></div>
+	<ul id="StoryList" class="w3-ul w3-xlarge">
+		<script>
+			//var jsonResults = {{ data|tojson|safe }};
+			var jsonResults = {
+				"stories": [
+					"s/12929668/1/Rewind-to-Black",
+					"s/13125296/1/Our-Choices-In-Life-Year-One"
+					],
+				"authors": [
+					"u/5482960/animeotaku20","u/11078919/Pyrohub"
+					]
+				};
+			var userResults = jsonResults['stories'];
+			var list = "";
+			for (var key in userResults) {
+				list+="<li class='w3-text-indigo'>";
+				list+=userResults[key];
+				list+="</li>";
+			}
+			document.getElementById("StoryList").innerHTML = list;
+		</script>
+	</ul>
+	<div class="w3-left-align w3-text-indigo"><p>Author Recommendations</p></div>
+	<ul id="AuthorList" class="w3-ul w3-xlarge">
+		<script>
+			//var jsonResults = {{ data|tojson|safe }};
+			var jsonResults = {
+				"stories": [
+					"s/12929668/1/Rewind-to-Black",
+					"s/13125296/1/Our-Choices-In-Life-Year-One"
+					],
+				"authors": [
+					"u/5482960/animeotaku20","u/11078919/Pyrohub"
+					]
+				};
+			var authorResults = jsonResults['authors'];
+			var list = "";
+			for (var key in authorResults) {
+				list+="<li class='w3-text-indigo'>";
+				list+=authorResults[key];
+				list+="</li>";
+			}
+			document.getElementById("AuthorList").innerHTML = list;
+		</script>
+	</ul>
     </div>
   </div>
 </div>
