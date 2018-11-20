@@ -4,6 +4,8 @@ import json
 import recommend
 import userInfo
 import json_lines
+import pageRankRecommender as PRR
+import RecommendationCombination as RC
 app = Flask(__name__)
 
 #adding global variables
@@ -35,11 +37,16 @@ def back_to_home():
 def outputPage():
     if request.method == 'POST':
         link = request.form['link']
-        favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
+        #favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
+        favoriteAuthors = userInfo.getFavoriteAuthors(link)
+        result = RC.getTopAuthors(favoriteAuthors)
+        return render_template('recommendation.html', data=result[:10])
+        
+        #favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
         #favoriteAuthors = userInfo.getFavoriteAuthors(link)
-        result = recommend.recommender(favoriteAuthors)
+        #result = recommend.recommender(favoriteAuthors)
         #result2 = result.keys()[:10]
-        return render_template('recommendation.html', data=result)
+        #return render_template('recommendation.html', data=result)
 
 	
 @app.route('/recommendation.html/fanfix.html/')
@@ -54,13 +61,14 @@ def startup():
     global userFavs
     global topStories
     global stories, users
+    global prRecommender
     stories = []
     users = []
     with app.open_resource('result.jl') as f:  
         for line in f:
             j = json.loads(line)
             if j["pageType"] == "user":
-                users.append({'name':j['name'], 'name':j['stories']})
+                users.append({'name':j['name'], 'stories':j['stories']})
                 favAuthors = []
                 favs = j["favorites"]
                 for elem in favs:
@@ -80,6 +88,7 @@ def startup():
                     #if the current top story for the author has less favorites than the new story then make the new story the top story. else don't change anything.
                     if int(topStories[author][1]) < int(favs):
                         topStories[author] = (link, int(favs))   
+    prRecommender = PRR.pageRankRecommender()
     
 startup()
 

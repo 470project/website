@@ -8,7 +8,6 @@ import json
 
 #importing app so global variables can be used
 import app
-from collections import OrderedDict
 
 #user that we are matching
 #matchUser = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
@@ -53,7 +52,7 @@ def recommender(matchUser):
             simScore = authorStoryScore[elem][0]
             authorStoryScore[elem] = (simScore, app.topStories[elem][0])
 
-    sortedDict = OrderedDict(sorted(authorStoryScore.items(), key=lambda kv: kv[1], reverse=True))
+    sortedDict = sorted(authorStoryScore.items(), key=lambda kv: kv[1], reverse=True)
 
     '''
     sList = sortedDict.keys()
@@ -68,6 +67,7 @@ def recommender(matchUser):
     '''
 
     return json.dumps(sortedDict)
+
 
     '''
     j = json.dumbs(authorStoryScore)
