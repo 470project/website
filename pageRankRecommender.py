@@ -58,8 +58,8 @@ class pageRankRecommender():
     def predict(self):
         return self.storyLinkToScores
 
-    def predictBestAuthor(self):
-        print()
+    def predictBestAuthors(self):
+        return self.userLinkToScores
 '''
 #%%
 
