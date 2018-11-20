@@ -14,15 +14,15 @@ import pageRankRecommender
 
 #user that we are matching
 #matchUser = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
-def recommender(matchUser):          
+def recommender(matchUser, userFavs, topStories):          
 
     #Find similar users
     jaccardDict = {}
 
-    for key in app.userFavs:
+    for key in userFavs:
         cInter = 0
         cUnion = len(matchUser)
-        for author in app.userFavs[key]:
+        for author in userFavs[key]:
             if author in matchUser:
                 cInter+=1
             else:
@@ -38,7 +38,7 @@ def recommender(matchUser):
 
     #top twenty most similar
     for i in range(20):
-        favList = app.userFavs[sortedJaccard[i][0]]
+        favList = userFavs[sortedJaccard[i][0]]
         for elem in favList:
             if elem not in matchUser:
                 if elem in authorStoryScore:
@@ -51,24 +51,13 @@ def recommender(matchUser):
                     authorStoryScore[elem] = (sortedJaccard[i][1], "")        #saves the similarity score from the user and leaves the storylink blank for now.
 
     for elem in set(authorsToLookAt):
-        if elem in app.topStories:
+        if elem in topStories:
             simScore = authorStoryScore[elem][0]
-            authorStoryScore[elem] = (simScore, app.topStories[elem][0])
+            authorStoryScore[elem] = (simScore, topStories[elem][0])
 
     sortedDict = OrderedDict(sorted(authorStoryScore.items(), key=lambda kv: kv[1], reverse=True))
-    '''
-    sList = sortedDict.keys()
 
-    sListShort = []
-    count = 0
-    for elem in sList:
-        if count >=10:
-            break
-        sListShort.append(elem)
-        count += 1
-    '''
-
-    return json.dumps(sortedDict)
+    return sortedDict
 
     '''
     j = json.dumbs(authorStoryScore)

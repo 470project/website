@@ -2,11 +2,11 @@ import json
 import string
 import json_lines
 import itertools
-
+import re
 import app
 
 class pageRankRecommender():
-    def __init__(self):
+    def __init__(self, users, stories):
         with open('PRresult.json') as f:
             PRresults = json.load(f)
 
@@ -14,7 +14,7 @@ class pageRankRecommender():
         IdToUserDict = {}
 
         lastUserId = 0
-        for user in app.users:
+        for user in users:
             userLinkToIdDict[user['name']] = lastUserId
             IdToUserDict[lastUserId] = user
             lastUserId += 1
@@ -22,9 +22,23 @@ class pageRankRecommender():
         storyLinkToIdDict = {}
         IdToStoryDict = {}
 
+        shortStoryIds = []
+
+        def getShortStoryId(link):
+            #/s/4536005/1/Oh-God-Not-Again
+            m = re.match('/s/(?P<shortId>\d+)/\d', link)
+            if(m is None):
+                return ""
+            return m.group('shortId')
+
         #create a dict between storied and their id
         lastStoryId = 0
-        for story in app.stories:
+        for story in stories:
+            shortId = getShortStoryId(story['storyLink'])
+            if(shortId not in shortStoryIds):
+                shortStoryIds.append(shortId)
+            else:
+                continue
             storyLinkToIdDict[story['storyLink']] = lastStoryId
             IdToStoryDict[lastStoryId] = story
             lastStoryId += 1
@@ -55,7 +69,7 @@ class pageRankRecommender():
                     if(story in storyLinkToIdDict):
                         self.storyLinkToScores[story] = score
 
-    def predict(self):
+    def predictBestStories(self):
         return self.storyLinkToScores
 
     def predictBestAuthors(self):
