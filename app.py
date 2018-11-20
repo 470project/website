@@ -85,8 +85,8 @@ def danielTest():
     userName = "Basketbears"
     userId = "5253296"
     userURL = "https://www.fanfiction.net/u/5253296/Basketbears"
-    #userPage = requests.get(userURL)
-    return userURL
+    userPage = requests.get(userURL)
+    return userPage
 
 
 
