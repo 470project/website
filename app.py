@@ -34,7 +34,9 @@ def back_to_home():
 def outputPage():
 	if request.method == 'POST':
 		link = request.link
-		return render_template('recommendation.html')
+		favoriteAuthors = UserInfo.getFavoriteAuthors(link)
+		result = recommend.recommender(favoriteAuthors)
+		return render_template('recommendation.html', data=result)
 	
 @app.route('/recommendation.html/fanfix.html/')
 def back_to_home_rec():
