@@ -5,6 +5,7 @@ import recommend
 import userInfo
 import json_lines
 import pageRankRecommender as PRR
+import RecommendationCombination as RC
 app = Flask(__name__)
 
 #adding global variables
@@ -38,11 +39,15 @@ def outputPage():
         link = request.form['link']
         #favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
         favoriteAuthors = userInfo.getFavoriteAuthors(link)
-        #result = recommend.recommender(favoriteAuthors)
-        scores = [ (link, score)for link, score in prRecommender.predict().items()]
-        result = scores[:10]
-        print(result[:10])
+        result = RC.getTopAuthors(favoriteAuthors)
         return render_template('recommendation.html', data=result[:10])
+        
+        #favoriteAuthors = ["/u/1138361/iheartmwpp", "/u/8545331/Professor-Flourish-and-Blotts", "/u/4286546/Missbexiee", "/u/1697963/lydiamaartin", "/u/609412/Crystallic-Rain"]
+        #favoriteAuthors = userInfo.getFavoriteAuthors(link)
+        #result = recommend.recommender(favoriteAuthors)
+        #result2 = result.keys()[:10]
+        #return render_template('recommendation.html', data=result)
+
 	
 @app.route('/recommendation.html/fanfix.html/')
 def back_to_home_rec():
