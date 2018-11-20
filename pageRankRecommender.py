@@ -30,6 +30,7 @@ class pageRankRecommender():
             lastStoryId += 1
         
         self.storyLinkToScores = {}
+        self.userLinkToScores = {}
 
         minScore = 0
         maxScore = 0
@@ -45,6 +46,8 @@ class pageRankRecommender():
         for res in PRresults:
             score = res['score'] / delta
             link = res['link']
+
+            self.userLinkToScores[link] = score
 
             if(link in userLinkToIdDict):
                 user = IdToUserDict[userLinkToIdDict[link]]
