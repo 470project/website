@@ -39,7 +39,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-content">
     <div class="w3-container">
 	<div class="w3-left-align w3-text-indigo"><h2>Author Recommendations</h2></div>
-	<ul id="AuthorList" class="w3-ul w3-xlarge w3-border">
+	<ul id="AuthorList" class="w3-ul w3-card-4 w3-xlarge w3-border">
 		<script>
       		var results = {{ data|safe }};
 		var authorResults = results["authors"];
@@ -59,7 +59,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   	</ul>
   
   	<div class="w3-left-align w3-text-indigo"><h2>Story Recommendations</h2></div>
-  	<ul id="StoryList" class="w3-ul w3-xlarge w3-border">
+  	<ul id="StoryList" class="w3-ul w3-card-4 w3-xlarge w3-border">
       		<script>
         	var results = {{ data|safe }};
         	var authorResults = results["stories"];
