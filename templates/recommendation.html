@@ -38,53 +38,48 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-container">
-
-  <!--
-	<div class="w3-left-align w3-text-indigo"><p>Author Recommendations</p></div>
-	 <ul id="StoryList" class="w3-ul w3-xlarge">
-		<script>
-			var userResults = {{ data|tojson|safe }};
-			var list = "";
-			for (var key in userResults) {
-				list+="<li class='w3-text-indigo'>";
-				list+=key;
-				list+="</li>";
-			}
-			document.getElementById("StoryList").innerHTML = list;
-		</script>
-	</ul>
--->
-
 	<div class="w3-left-align w3-text-indigo"><h2>Author Recommendations</h2></div>
-	<ul id="AuthorList" class="w3-ul w3-xlarge">
+	<ul id="AuthorList" class="w3-ul w3-xlarge w3-border">
 		<script>
-      var results = {{ data|safe }};
-			var authorResults = results["authors"];
-			var list = "";
-			for (var i = 0; i < 10; i++) {
-				list+="<li class='w3-text-indigo'>";
-				list+=authorResults[i];
-				list+="</li>";	
-			}
-			document.getElementById("AuthorList").innerHTML = list;
+      		var results = {{ data|safe }};
+		var authorResults = results["authors"];
+		var list = "";
+		for (var i = 0; i < 10; i++) {
+			var link = "https://www.fanfiction.net" + authorResults[i];
+			list+="<li class='w3-text-indigo'>";
+			list+="<a href='";
+			list+=link;
+			list+="'>";
+			list+=link;
+			list+="</a>";
+			list+=authorResults[i];
+			list+="</li>";	
+		}
+		document.getElementById("AuthorList").innerHTML = list;
 		</script>
-  </ul>
+  	</ul>
   
-  <div class="w3-left-align w3-text-indigo"><h2>Story Recommendations</h2></div>
-  <ul id="StoryList" class="w3-ul w3-xlarge">
-      <script>
-        var results = {{ data|safe }};
-        var authorResults = results["stories"];
-        var list = "";
-        for (var i = 0; i < 10; i++) {
-          list+="<li class='w3-text-indigo'>";
-          list+=authorResults[i];
-          list+="</li>";	
-        }
-        document.getElementById("StoryList").innerHTML = list;
-      </script>
-    </ul>
-    </div>
+  	<div class="w3-left-align w3-text-indigo"><h2>Story Recommendations</h2></div>
+  	<ul id="StoryList" class="w3-ul w3-xlarge w3-border">
+      		<script>
+        	var results = {{ data|safe }};
+        	var authorResults = results["stories"];
+        	var list = "";
+        	for (var i = 0; i < 10; i++) {
+			var link = "https://www.fanfiction.net" + authorResults[i];
+			list+="<li class='w3-text-indigo'>";
+			list+="<a href='";
+			list+=link;
+			list+="'>";
+			list+=link;
+			list+="</a>";
+			list+=authorResults[i];
+			list+="</li>";	
+        	}
+        	document.getElementById("StoryList").innerHTML = list;
+     		</script>
+    	</ul>
+    	</div>
   </div>
 </div>
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
